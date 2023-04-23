@@ -1,13 +1,22 @@
 {
   "name": "antv-cron",
   "version": "0.1.0",
-  "private": true,
+  "author": "zhangyq",
+  "private": false,
+  "description": "A cron editor of easy-to-use, base on Vue",
+  "keywords": [
+    "cron editor",
+    "cron input",
+    "cron js"
+  ],
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "lib": "vue-cli-service build --target lib --name cron-vue --dest lib packages/index.js"
   },
   "dependencies": {
+    "ant-design-vue": "^1.7.2",
     "core-js": "^3.8.3",
     "vue": "^2.6.14"
   },
@@ -17,6 +26,7 @@
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-eslint": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
+    "babel-plugin-import": "^1.13.0",
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.0.3",
     "vue-template-compiler": "^2.6.14"

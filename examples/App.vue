@@ -1,20 +1,30 @@
 <template>
   <div id="app">
-    <cron-input class="cron-editor" v-model="cron"/>
-    <a-input v-model="cron" placeholder="* * * * * ? *"/>
+    <cron-input class="cron-editor" v-model="cron">
+      <div style="display:flex;padding:1em">
+        <a-input v-model="cron" placeholder="* * * * * ?" style="flex:1"/>
+      </div>
+    </cron-input>
+    <a-popover trigger="click">
+      <template slot="content">
+        <cron-input class="cron-editor" v-model="cron"/>
+      </template>
+      <a-input v-model="cron" placeholder="* * * * * ?" style="width:auto"/>
+    </a-popover>
+
   </div>
 </template>
 
 <script>
-import { Input } from 'ant-design-vue'
+import { Input, Popover } from 'ant-design-vue'
 
 export default {
   name: 'App',
-  components: { AInput: Input },
+  components: { AInput: Input, APopover: Popover },
   data () {
     return {
       visible: true,
-      cron: '0 15 10 ? * 2-6'
+      cron: '0 15 10 ? * MONL'
     }
   },
   mounted() {

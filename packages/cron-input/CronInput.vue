@@ -1,7 +1,7 @@
 <template>
 	<div class="ant-cron-input">
 		<a-tabs type="card" v-model="tabActive">
-			<a-tab-pane key="second">
+			<a-tab-pane key="second" :disabled="!item.includes('second')">
 				<span slot="tab"><a-icon type="calendar" /> {{ text.Seconds.name }}</span>
 				<a-radio-group v-model="second.cronEvery" class="cron-radio-group">
 					<a-radio class="cron-radio" value="1">{{ text.Seconds.every }}</a-radio>
@@ -33,7 +33,7 @@
 					</a-radio>
 				</a-radio-group>
 			</a-tab-pane>
-			<a-tab-pane key="minutes">
+			<a-tab-pane key="minute" :disabled="!item.includes('minute')">
 				<span slot="tab"><a-icon type="calendar" /> {{ text.Minutes.name }}</span>
 				<a-radio-group v-model="minute.cronEvery" class="cron-radio-group">
 						<a-radio class="cron-radio" value="1">{{ text.Minutes.every }}</a-radio>
@@ -65,7 +65,7 @@
 						</a-radio>
 				</a-radio-group>
 			</a-tab-pane>
-			<a-tab-pane key="hours">
+			<a-tab-pane key="hour" :disabled="!item.includes('hour')">
 				<span slot="tab"><a-icon type="calendar" /> {{ text.Hours.name }}</span>
 				<a-radio-group v-model="hour.cronEvery" class="cron-radio-group">
 						<a-radio class="cron-radio" value="1">{{ text.Hours.every }}</a-radio>
@@ -97,87 +97,48 @@
 						</a-radio>
 				</a-radio-group>
 			</a-tab-pane>
-			<a-tab-pane key="day">
+			<a-tab-pane key="day" :disabled="!item.includes('day')">
 				<span slot="tab"><a-icon type="calendar" /> {{ text.Day.name }}</span>
 				<a-radio-group v-model="day.cronEvery" class="cron-radio-group">
-						<a-radio class="cron-radio" value="1">{{ text.Day.every }}</a-radio>
-						<a-radio class="cron-radio" value="2">
-							<span class="cron-radio-content">
-							{{ text.Day.intervalWeek[0] }}
-							<a-input-number class="cron-form-item" v-model="week.incrementIncrement" :min="1" :max="7"></a-input-number>
-							{{ text.Day.intervalWeek[1] }}
-							<a-select class="cron-form-item" v-model="week.incrementStart">
-								<a-select-option v-for="val in 7" :key="val" :value="String(val)">{{ text.Week[val - 1] }}</a-select-option>
-							</a-select>
-							{{ text.Day.intervalWeek[2] }}
-							</span>
-						</a-radio>
-						<a-radio class="cron-radio" value="3">
-							<span class="cron-radio-content">
-							{{ text.Day.intervalDay[0] }}
-							<a-input-number class="cron-form-item" v-model="day.incrementIncrement" :min="1" :max="31"></a-input-number>
-							{{ text.Day.intervalDay[1] }}
-							<a-input-number class="cron-form-item" v-model="day.incrementStart" :min="1" :max="31"></a-input-number>
-							{{ text.Day.intervalDay[2] }}
-							</span>
-						</a-radio>
-					
-					
-						<a-radio class="cron-radio long" value="4">
-							<span class="cron-radio-content">
-							{{ text.Day.specificWeek }}
-							<a-select class="cron-form-item" mode="tags" v-model="week.specificSpecific" style="margin-right:0">
-								<a-select-option v-for="val in 7" :key="val"
-									:value="['1', '2', '3', '4', '5', '6', '7'][val - 1]">{{ text.Week[val - 1] }}</a-select-option>
-							</a-select>
-							</span>
-						</a-radio>
-						<a-radio class="cron-radio long" value="5">
-							<span class="cron-radio-content">
-							{{ text.Day.specificDay }}
-							<a-select class="cron-form-item" mode="tags" v-model="day.specificSpecific" style="margin-right:0">
-								<a-select-option v-for="val in 31" :key="val" :value="String(val)">{{ val }}</a-select-option>
-							</a-select>
-							</span>
-						</a-radio>
-						<a-radio class="cron-radio" value="6">{{ text.Day.lastDay }}</a-radio>
-						<a-radio class="cron-radio" value="7">{{ text.Day.lastWeekday }}</a-radio>	
-						<a-radio class="cron-radio long" value="8">
-							<span class="cron-radio-content">
-							{{ text.Day.lastWeek[0] }}
-							<a-select class="cron-form-item" v-model="day.cronLastSpecificDomDay" style="margin-right:0">
-								<a-select-option v-for="val in 7" :key="val" :value="String(val)">{{ text.Week[val - 1] }}</a-select-option>
-							</a-select>
-							{{ text.Day.lastWeek[1] || '' }}
-							</span>
-						</a-radio>	
-						<a-radio class="cron-radio" value="9">
-							<span class="cron-radio-content">
+					<a-radio class="cron-radio" value="8">{{ text.Day.noSet }}</a-radio>
+					<a-radio class="cron-radio" value="1">{{ text.Day.every }}</a-radio>
+					<a-radio class="cron-radio" value="2">
+						<span class="cron-radio-content">
+						{{ text.Day.interval[0] }}
+						<a-input-number class="cron-form-item" v-model="day.incrementIncrement" :min="1" :max="31"></a-input-number>
+						{{ text.Day.interval[1] }}
+						<a-input-number class="cron-form-item" v-model="day.incrementStart" :min="1" :max="31"></a-input-number>
+						{{ text.Day.interval[2] }}
+						</span>
+					</a-radio>
+					<a-radio class="cron-radio long" value="3">
+						<span class="cron-radio-content">
+						{{ text.Day.specific }}
+						<a-select class="cron-form-item" mode="tags" v-model="day.specificSpecific" style="margin-right:0">
+							<a-select-option v-for="val in 31" :key="val" :value="String(val)">{{ val }}</a-select-option>
+						</a-select>
+						</span>
+					</a-radio>
+					<a-radio class="cron-radio" value="4">{{ text.Day.lastDay }}</a-radio>
+					<a-radio class="cron-radio" value="5">{{ text.Day.lastWeekday }}</a-radio>	
+					<a-radio class="cron-radio" value="6">
+						<span class="cron-radio-content">
+							<span v-show="!lang || lang === 'cn'">{{ text.Day.beforeEndMonth[0] }}</span>
 							<a-input-number class="cron-form-item" v-model="day.cronDaysBeforeEomMinus" :min="1" :max="31"></a-input-number>
-							{{ text.Day.beforeEndMonth[0] }}
-							</span>
-						</a-radio>	
-						<a-radio class="cron-radio" value="10">
-							<span class="cron-radio-content">
-							{{ text.Day.nearestWeekday[0] }}
-							<a-input-number class="cron-form-item" v-model="day.cronDaysNearestWeekday" :min="1" :max="31"></a-input-number>
-							{{ text.Day.nearestWeekday[1] }}
-							</span>
-						</a-radio>
-						<a-radio class="cron-radio long" value="11">
-							<span class="cron-radio-content">
-							{{ text.Day.someWeekday[0] }}
-							<a-input-number class="cron-form-item" v-model="week.cronNthDayNth" :min="1" :max="5"></a-input-number>
-							<span v-show="!lang || lang === 'cn'">{{ text.Day.someWeekday[1] }}</span>
-							<a-select class="cron-form-item" v-model="week.cronNthDayDay" style="margin-right:0">
-								<a-select-option v-for="val in 7" :key="val" :value="String(val)">{{ text.Week[val - 1] }}</a-select-option>
-							</a-select>
-							<span v-show="lang === 'en'">{{ text.Day.someWeekday[1] }}</span>
-							</span>
-						</a-radio>
+							<span v-show="!lang || lang === 'cn'">{{ text.Day.beforeEndMonth[1] }}</span>
+							<span v-show="lang === 'en'">{{ text.Day.beforeEndMonth[0] }}</span>
+						</span>
+					</a-radio>	
+					<a-radio class="cron-radio" value="7">
+						<span class="cron-radio-content">
+						{{ text.Day.nearestWeekday[0] }}
+						<a-input-number class="cron-form-item" v-model="day.cronDaysNearestWeekday" :min="1" :max="31"></a-input-number>
+						{{ text.Day.nearestWeekday[1] }}
+						</span>
+					</a-radio>
 				</a-radio-group>
 			</a-tab-pane>
-			<a-tab-pane key="month">
+			<a-tab-pane key="month" :disabled="!item.includes('month')">
 				<span slot="tab"><a-icon type="calendar" /> {{ text.Month.name }}</span>
 				<a-radio-group v-model="month.cronEvery" class="cron-radio-group">				
 						<a-radio class="cron-radio" value="1">{{ text.Month.every }}</a-radio>
@@ -207,16 +168,53 @@
 						</a-radio>
 				</a-radio-group>
 			</a-tab-pane>
-			<a-tab-pane key="year">
+			<a-tab-pane key="week" :disabled="!item.includes('week')">
+				<span slot="tab"><a-icon type="calendar" /> {{ text.Week.name }}</span>
+				<a-radio-group v-model="week.cronEvery" class="cron-radio-group">
+					<a-radio class="cron-radio" value="5">{{ text.Week.noSet }}</a-radio>
+					<a-radio class="cron-radio long" value="2">
+						<span class="cron-radio-content">
+						{{ text.Day.specific }}
+						<a-select class="cron-form-item" mode="tags" v-model="week.specificSpecific" style="margin-right:0">
+							<a-select-option v-for="val in 7" :key="val"
+								:value="weekEnum[val - 1]">{{ text.Week.select[val - 1] }}</a-select-option>
+						</a-select>
+						</span>
+					</a-radio>
+					<a-radio class="cron-radio long" value="3">
+						<span class="cron-radio-content">
+						{{ text.Week.someWeekday[0] }}
+						<a-input-number class="cron-form-item" v-model="week.cronNthDayNth" :min="1" :max="5"></a-input-number>
+						<span v-show="!lang || lang === 'cn'">{{ text.Week.someWeekday[1] }}</span>
+						<a-select class="cron-form-item" v-model="week.cronNthDayDay" style="margin-right:0">
+							<a-select-option v-for="val in 7" :key="val" :value="weekEnum[val-1]">{{ text.Week.select[val - 1] }}</a-select-option>
+						</a-select>
+						<span v-show="lang === 'en'">{{ text.Week.someWeekday[1] }}</span>
+						</span>
+					</a-radio>
+					<a-radio class="cron-radio long" value="4">
+						<span class="cron-radio-content">
+							{{text.Week.lastday[0]}}
+							<a-select class="cron-form-item" v-model="week.cronLastSpecificDomDay">
+									<a-select-option v-for="val in 7" :key="val" :value="weekEnum[val-1]">{{ text.Week.select[val - 1] }}</a-select-option>
+							</a-select>
+							{{text.Week.lastday[1]||''}}
+						</span>
+					</a-radio>
+				</a-radio-group>
+			</a-tab-pane>
+			<a-tab-pane key="year" :disabled="!item.includes('year')">
 				<span slot="tab"><a-icon type="calendar" /> {{ text.Year.name }}</span>
-				<a-radio-group v-model="year.cronEvery" class="cron-radio-group">				
+				<a-radio-group v-model="year.cronEvery" class="cron-radio-group">
+						<a-radio class="cron-radio" value="5">{{ text.Year.noSet }}</a-radio>				
 						<a-radio class="cron-radio" value="1">{{ text.Year.every }}</a-radio>
 						<a-radio class="cron-radio" value="2">
 							<span class="cron-radio-content">
 							{{ text.Year.interval[0] }}
 							<a-input-number class="cron-form-item" v-model="year.incrementIncrement" :min="1" :max="99"></a-input-number>
 							{{ text.Year.interval[1] }}
-							<a-input-number class="cron-form-item" v-model="year.incrementStart" :min="2023" :max="2128" style="margin-right:0"></a-input-number>
+							<a-input-number class="cron-form-item" v-model="year.incrementStart" :min="2023" :max="2128"></a-input-number>
+							{{ text.Year.interval[2] }}
 							</span>
 						</a-radio>
 					
@@ -245,6 +243,9 @@
 		<div class="ant-cron-bottom">
 			<span class="ant-cron-result">{{ this.cron }}</span>
 		</div>
+		<div class="ant-cron-extra">
+			<slot/>
+		</div>
 	</div>
 </template>
 <script>
@@ -270,19 +271,24 @@ export default {
 		value: {
 			type: String,
 			default: '* * * * * ? *'
+		},
+		item: {
+			type: Array,
+			default: () => ['second','minute','hour','day','month','week']
 		}
 	},
 	data() {
 		return {
 			tabActive: 'second',
+			weekEnum: ['SUN','MON','TUE','WED','THU','FRI','SAT'],
 			exps: [
 				{ type: "second", expression: "" },
 				{ type: "minute", expression: "" },
 				{ type: "hour", expression: "" },
 				{ type: "day", expression: "" },
 				{ type: "month", expression: "" },
-				{ type: "Week", expression: "" },
-				{ type: "year", expression: "" },
+				{ type: "week", expression: "" },
+				{ type: "year", expression: null },
 			],
 			second: {
 				cronEvery: '',
@@ -315,17 +321,15 @@ export default {
 				rangeStart: '',
 				rangeEnd: '',
 				specificSpecific: [],
-				cronLastSpecificDomDay: '',
 				cronDaysBeforeEomMinus: '',
 				cronDaysNearestWeekday: '',
 			},
 			week: {
 				cronEvery: '',
-				incrementStart: '1',
-				incrementIncrement: '1',
 				specificSpecific: [],
-				cronNthDayDay: '',
-				cronNthDayNth: '1',
+				cronNthDayDay: '', // 本月的周几
+				cronNthDayNth: '1', // 本月的第几个
+				cronLastSpecificDomDay: ''
 			},
 			month: {
 				cronEvery: '',
@@ -337,7 +341,7 @@ export default {
 			},
 			year: {
 				cronEvery: '',
-				incrementStart: '2017',
+				incrementStart: '',
 				incrementIncrement: '1',
 				rangeStart: '',
 				rangeEnd: '',
@@ -358,6 +362,10 @@ export default {
 		cron(val) {
 			this.$emit('input', val)
 			this.$emit('change', val);
+		},
+		value(val) {
+			console.info('T', val)
+			this.resolveExpression()
 		}
 	},
 	computed: {
@@ -435,67 +443,52 @@ export default {
 			let cronEvery = this.day.cronEvery;
 			switch (cronEvery.toString()) {
 				case '1':
-					break;
+					break
 				case '2':
-				case '4':
-				case '11':
-					days = '?';
-					break;
+					days = this.day.incrementStart + '/' + this.day.incrementIncrement
+					break
 				case '3':
-					days = this.day.incrementStart + '/' + this.day.incrementIncrement;
-					break;
-				case '5':
 					this.day.specificSpecific.map(val => {
 						days += val + ','
 					});
-					days = days.slice(0, -1);
+					days = days.slice(0, -1)
 					break;
+				case '4':
+					days = "L"
+					break
+				case '5':
+					days = "LW"
+					break
 				case '6':
-					days = "L";
-					break;
+					days = 'L-' + this.day.cronDaysBeforeEomMinus
+					break
 				case '7':
-					days = "LW";
-					break;
-				case '8':
-					days = this.day.cronLastSpecificDomDay + 'L';
-					break;
-				case '9':
-					days = 'L-' + this.day.cronDaysBeforeEomMinus;
-					break;
-				case '10':
-					days = this.day.cronDaysNearestWeekday + "W";
+					days = this.day.cronDaysNearestWeekday + "W"
+					break
+				default:
+					days = '?'
 					break
 			}
 			return days;
 		},
 		weeksText() {
 			let weeks = '';
-			let cronEvery = this.day.cronEvery;
+			let cronEvery = this.week.cronEvery;
 			switch (cronEvery.toString()) {
-				case '1':
-				case '3':
-				case '5':
-					weeks = '?';
-					break;
 				case '2':
-					weeks = this.week.incrementStart + '/' + this.week.incrementIncrement;
-					break;
-				case '4':
 					this.week.specificSpecific.map(val => {
 						weeks += val + ','
 					});
 					weeks = weeks.slice(0, -1);
 					break;
-				case '6':
-				case '7':
-				case '8':
-				case '9':
-				case '10':
-					weeks = "?";
-					break;
-				case '11':
+				case '3':
 					weeks = this.week.cronNthDayDay + "#" + this.week.cronNthDayNth;
 					break;
+				case '4':
+					weeks = this.week.cronLastSpecificDomDay + 'L';
+					break;
+				default:
+					weeks = '?'
 			}
 			return weeks;
 		},
@@ -540,23 +533,27 @@ export default {
 				case '4':
 					years = this.year.rangeStart + '-' + this.year.rangeEnd;
 					break;
+				case '5':
+					years = '';
+					break;
 			}
 			return years;
 		},
 		cron() {
-			return `${this.secondsText || '*'} ${this.minutesText || '*'} ${this.hoursText || '*'} ${this.daysText || '*'} ${this.monthsText || '*'} ${this.weeksText || '?'} ${this.yearsText || '*'}`
+			return `${this.secondsText || '*'} ${this.minutesText || '*'} ${this.hoursText || '*'} ${this.daysText || '*'} ${this.monthsText || '*'} ${this.weeksText || '?'} ${this.yearsText}`
 		},
 	},
 	methods: {
 		resolveExpression() {
 			if (!this.value?.length) return;
 			let expList = this.value.split(" ");
-			if (expList.length < 7) {
+			if (expList.length < 6) {
 				new Error("表达式格式不正确");
 			}
 			for (let i = 0; i < expList.length; i++) {
 				this.exps[i].expression = expList[i];
 			}
+			
 			this.exps.forEach((exp) => {
 				this.output[exp.type] = exp.expression;
 				switch (exp.type) {
@@ -567,7 +564,7 @@ export default {
 					case "second":
 						this.commonParser(this[exp.type], exp.expression);
 						return;
-					case "Week":
+					case "week":
 						this.resolveWeek(exp.expression);
 						return;
 					case "day":
@@ -578,7 +575,10 @@ export default {
 		},
 		// 年，月，时，分，秒
 		commonParser(expressionType, str) {
-			if (str == "*") {
+			if(str == null) { // 年一般省略
+				expressionType.specificSpecific = []
+				expressionType.cronEvery = '5'
+			} else if (str == "*") {
 				this.resolveStar(expressionType);
 			} else if (str.indexOf("-") >= 0) {
 				this.resolveLine(expressionType, str);
@@ -589,17 +589,20 @@ export default {
 			}
 		},
 		resolveWeek(str) {
-			if (str.indexOf("/") >= 0) {
-				this.day.cronEvery = "2";
-				this.resolveSlash(this.week, str);
-			} else if (str.indexOf(",") >= 0) {
-				this.day.cronEvery = "4";
+			const matchCronLastSpecificDomDay = /[(SUN)|(MON)|(TUE)|(WED)|(THU)|(FRI)|(SAT)]+L/
+			if (str.indexOf(",") >= 0) {
+				this.day.cronEvery = "2"
 				this.resolveComma(this.week, str);
 			} else if (str.indexOf("#") >= 0) {
-				this.day.cronEvery = "11";
-				let range = str.split("#");
-				this.Week.cronNthDayDay = range[0];
-				this.Week.cronNthDayNth = range[1];
+				this.day.cronEvery = "3"
+				let range = str.split("#")
+				this.week.cronNthDayDay = range[0]
+				this.week.cronNthDayNth = range[1]
+			} else if (matchCronLastSpecificDomDay.test(str)) {
+				this.week.cronEvery = "4"
+				this.week.cronLastSpecificDomDay = str.match(matchCronLastSpecificDomDay)[0].substr(0,3)
+			} else {
+				this.cronEvery = '5'
 			}
 		},
 		resolveDay(str) {
@@ -608,18 +611,17 @@ export default {
 			} else if (str.indexOf("/") >= 0) {
 				this.resolveSlash(this.day, str, "3");
 			} else if (str == "L") {
-				this.day.cronEvery = "6";
+				this.day.cronEvery = "4";
 			} else if (str == "LW") {
-				this.day.cronEvery = "7";
-			} else if (/\dL/.test(str)) {
-				this.day.cronEvery = "8";
-				this.day.cronLastSpecificDomDay = Number(str.match(/(\d)L/)[1]);
+				this.day.cronEvery = "5";
 			} else if (/L-\d+/.test(str)) {
-				this.day.cronEvery = "9";
+				this.day.cronEvery = "6";
 				this.day.cronDaysBeforeEomMinus = Number(str.match(/L-(\d+)/)[1]);
 			} else if (/\d+W/.test(str)) {
-				this.day.cronEvery = "10";
+				this.day.cronEvery = "7";
 				this.day.cronDaysNearestWeekday = Number(str.match(/(\d+)W/))[1];
+			} else if ( str == '?') {
+				this.day.cronEvery = '8'
 			} else {
 				this.resolveComma(this.day, str, "5");
 			}
@@ -657,7 +659,7 @@ export default {
 	z-index: 1;
 }
 .ant-cron-input{
-	width:460px;
+	width:580px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -672,12 +674,16 @@ export default {
 	align-items: center;
 	margin: 0 0 .5em .5em;
 }
+.cron-radio :last-child{
+	flex: 1
+}
+
 .cron-radio-content{
 	display: flex;
 	align-items: center;
-	width: 400px;
-	max-width: 400px;
+	width: 100%;
 }
+
 .cron-radio-content .cron-form-item{
 	margin: 0 1em;
 	flex: 1;
@@ -690,7 +696,9 @@ export default {
 	text-align: center;
 	margin-top: 5px;
 	position: relative;
-
+}
+.ant-cron-extra{
+	width: 100%;
 }
 .ant-cron-result {
 	font-size: 18px;

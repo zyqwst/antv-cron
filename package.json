@@ -1,19 +1,26 @@
 {
   "name": "antv-cron",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "zhangyq",
-  "private": false,
   "description": "A cron editor of easy-to-use, base on Vue",
   "keywords": [
     "cron editor",
     "cron input",
     "cron js"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zyqwst/antv-cron"
+  },
+  "homepage": "https://zyqwst.github.io/antv-cron/dist/index.html",
+  "license": " Apache-2.0 License",
+  "main": "lib/antv-cron.umd.min.js",
+  "private": false,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "lib": "vue-cli-service build --target lib --name cron-vue --dest lib packages/index.js"
+    "lib": "vue-cli-service build --target lib --name antv-cron --dest lib packages/index.js"
   },
   "dependencies": {
     "ant-design-vue": "^1.7.2",

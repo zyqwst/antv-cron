@@ -2,14 +2,14 @@
 	<div class="ant-cron-input">
 		<a-tabs type="card" v-model="tabActive">
 			<a-tab-pane key="second" :disabled="!item.includes('second')">
-				<span slot="tab"><a-icon type="calendar" /> {{ text.Seconds.name }}</span>
+				<span slot="tab"><a-icon type="calendar" v-show="lang=='cn'"/> {{ text.Seconds.name }}</span>
 				<a-radio-group v-model="second.cronEvery" class="cron-radio-group">
 					<a-radio class="cron-radio" value="1">{{ text.Seconds.every }}</a-radio>
 					<a-radio class="cron-radio" value="2">
 						<span class="cron-radio-content">
 							{{ text.Seconds.interval[0] }}
 							<a-input-number class="cron-form-item" v-model="second.incrementIncrement" :min="1" :max="60"></a-input-number>
-							{{ text.Seconds.interval[1] || '' }}
+							{{ text.Seconds.interval[1] }}
 							<a-input-number class="cron-form-item" v-model="second.incrementStart" :min="0" :max="59"></a-input-number>
 							{{ text.Seconds.interval[2] || '' }}
 						</span>
@@ -25,16 +25,16 @@
 					<a-radio class="cron-radio" value="4">
 						<span class="cron-radio-content">
 							{{ text.Seconds.cycle[0] }}
-							<a-input-number class="cron-form-item" v-model="second.rangeStart" :min="1" :max="58"></a-input-number>
-							{{ text.Seconds.cycle[1] || '' }}
-							<a-input-number class="cron-form-item" v-model="second.rangeEnd" :min="1" :max="59"></a-input-number>
+							<a-input-number class="cron-form-item" v-model="second.rangeStart" :min="0" :max="59"></a-input-number>
+							{{ text.Seconds.cycle[1]}}
+							<a-input-number class="cron-form-item" v-model="second.rangeEnd" :min="0" :max="59"></a-input-number>
 							{{ text.Seconds.cycle[2] || '' }}
 						</span>
 					</a-radio>
 				</a-radio-group>
 			</a-tab-pane>
 			<a-tab-pane key="minute" :disabled="!item.includes('minute')">
-				<span slot="tab"><a-icon type="calendar" /> {{ text.Minutes.name }}</span>
+				<span slot="tab"><a-icon type="calendar" v-show="lang=='cn'" /> {{ text.Minutes.name }}</span>
 				<a-radio-group v-model="minute.cronEvery" class="cron-radio-group">
 						<a-radio class="cron-radio" value="1">{{ text.Minutes.every }}</a-radio>
 						<a-radio class="cron-radio" value="2">
@@ -57,25 +57,25 @@
 						<a-radio class="cron-radio" value="4">
 							<span class="cron-radio-content">
 								{{ text.Minutes.cycle[0] }}
-								<a-input-number class="cron-form-item" v-model="minute.rangeStart" :min="1" :max="60"></a-input-number>
+								<a-input-number class="cron-form-item" v-model="minute.rangeStart" :min="0" :max="59"></a-input-number>
 								{{ text.Minutes.cycle[1] }}
 								<a-input-number class="cron-form-item" v-model="minute.rangeEnd" :min="0" :max="59"></a-input-number>
-								{{ text.Minutes.cycle[2] }}
+								{{ text.Minutes.cycle[2] || ''}}
 							</span>
 						</a-radio>
 				</a-radio-group>
 			</a-tab-pane>
 			<a-tab-pane key="hour" :disabled="!item.includes('hour')">
-				<span slot="tab"><a-icon type="calendar" /> {{ text.Hours.name }}</span>
+				<span slot="tab"><a-icon type="calendar" v-show="lang=='cn'" /> {{ text.Hours.name }}</span>
 				<a-radio-group v-model="hour.cronEvery" class="cron-radio-group">
 						<a-radio class="cron-radio" value="1">{{ text.Hours.every }}</a-radio>
 						<a-radio class="cron-radio" value="2">
 							<span class="cron-radio-content">
 								{{ text.Hours.interval[0] }}
-								<a-input-number class="cron-form-item" v-model="hour.incrementIncrement" :min="0" :max="23"></a-input-number>
+								<a-input-number class="cron-form-item" v-model="hour.incrementIncrement" :min="1" :max="23"></a-input-number>
 								{{ text.Hours.interval[1] }}
 								<a-input-number class="cron-form-item" v-model="hour.incrementStart" :min="0" :max="23"></a-input-number>
-								{{ text.Hours.interval[2] }}
+								{{ text.Hours.interval[2] || '' }}
 							</span>
 						</a-radio>
 						<a-radio class="cron-radio long" value="3">
@@ -92,15 +92,15 @@
 							<a-input-number class="cron-form-item" v-model="hour.rangeStart" :min="0" :max="23"></a-input-number>
 							{{ text.Hours.cycle[1] }}
 							<a-input-number class="cron-form-item" v-model="hour.rangeEnd" :min="0" :max="23"></a-input-number>
-							{{ text.Hours.cycle[2] }}
+							{{ text.Hours.cycle[2] || ''}}
 							</span>
 						</a-radio>
 				</a-radio-group>
 			</a-tab-pane>
 			<a-tab-pane key="day" :disabled="!item.includes('day')">
-				<span slot="tab"><a-icon type="calendar" /> {{ text.Day.name }}</span>
+				<span slot="tab"><a-icon type="calendar" v-show="lang=='cn'" /> {{ text.Day.name }}</span>
 				<a-radio-group v-model="day.cronEvery" class="cron-radio-group">
-					<a-radio class="cron-radio" value="8">{{ text.Day.noSet }}</a-radio>
+					<a-radio class="cron-radio" value="7">{{ text.Day.noSet }}</a-radio>
 					<a-radio class="cron-radio" value="1">{{ text.Day.every }}</a-radio>
 					<a-radio class="cron-radio" value="2">
 						<span class="cron-radio-content">
@@ -139,7 +139,7 @@
 				</a-radio-group>
 			</a-tab-pane>
 			<a-tab-pane key="month" :disabled="!item.includes('month')">
-				<span slot="tab"><a-icon type="calendar" /> {{ text.Month.name }}</span>
+				<span slot="tab"><a-icon type="calendar" v-show="lang=='cn'" /> {{ text.Month.name }}</span>
 				<a-radio-group v-model="month.cronEvery" class="cron-radio-group">				
 						<a-radio class="cron-radio" value="1">{{ text.Month.every }}</a-radio>
 						<a-radio class="cron-radio" value="2">
@@ -163,21 +163,22 @@
 								{{ text.Month.cycle[0] }}
 							<a-input-number class="cron-form-item" v-model="month.rangeStart" :min="1" :max="12"></a-input-number>
 							{{ text.Month.cycle[1] }}
-							<a-input-number class="cron-form-item" v-model="month.rangeEnd" :min="1" :max="12" style="margin-right:0"></a-input-number>
-							</span>
+							<a-input-number class="cron-form-item" v-model="month.rangeEnd" :min="1" :max="12"></a-input-number>
+							{{ text.Month.cycle[2] }}
+						</span>
 						</a-radio>
 				</a-radio-group>
 			</a-tab-pane>
 			<a-tab-pane key="week" :disabled="!item.includes('week')">
-				<span slot="tab"><a-icon type="calendar" /> {{ text.Week.name }}</span>
+				<span slot="tab"><a-icon type="calendar" v-show="lang=='cn'" /> {{ text.Week.name }}</span>
 				<a-radio-group v-model="week.cronEvery" class="cron-radio-group">
 					<a-radio class="cron-radio" value="5">{{ text.Week.noSet }}</a-radio>
 					<a-radio class="cron-radio long" value="2">
 						<span class="cron-radio-content">
 						{{ text.Day.specific }}
 						<a-select class="cron-form-item" mode="tags" v-model="week.specificSpecific" style="margin-right:0">
-							<a-select-option v-for="val in 7" :key="val"
-								:value="weekEnum[val - 1]">{{ text.Week.select[val - 1] }}</a-select-option>
+							<a-select-option v-for="val in weekValueList" :key="val"
+								:value="val">{{ text.Week.select[weekValueList.indexOf(val)] }}</a-select-option>
 						</a-select>
 						</span>
 					</a-radio>
@@ -187,7 +188,7 @@
 						<a-input-number class="cron-form-item" v-model="week.cronNthDayNth" :min="1" :max="5"></a-input-number>
 						<span v-show="!lang || lang === 'cn'">{{ text.Week.someWeekday[1] }}</span>
 						<a-select class="cron-form-item" v-model="week.cronNthDayDay" style="margin-right:0">
-							<a-select-option v-for="val in 7" :key="val" :value="weekEnum[val-1]">{{ text.Week.select[val - 1] }}</a-select-option>
+							<a-select-option v-for="val in weekValueList" :key="val" :value="val">{{ text.Week.select[weekValueList.indexOf(val)] }}</a-select-option>
 						</a-select>
 						<span v-show="lang === 'en'">{{ text.Week.someWeekday[1] }}</span>
 						</span>
@@ -196,7 +197,7 @@
 						<span class="cron-radio-content">
 							{{text.Week.lastday[0]}}
 							<a-select class="cron-form-item" v-model="week.cronLastSpecificDomDay">
-									<a-select-option v-for="val in 7" :key="val" :value="weekEnum[val-1]">{{ text.Week.select[val - 1] }}</a-select-option>
+									<a-select-option v-for="val in weekValueList" :key="val" :value="val">{{ text.Week.select[weekValueList.indexOf(val)] }}</a-select-option>
 							</a-select>
 							{{text.Week.lastday[1]||''}}
 						</span>
@@ -204,7 +205,7 @@
 				</a-radio-group>
 			</a-tab-pane>
 			<a-tab-pane key="year" :disabled="!item.includes('year')">
-				<span slot="tab"><a-icon type="calendar" /> {{ text.Year.name }}</span>
+				<span slot="tab"><a-icon type="calendar" v-show="lang=='cn'" /> {{ text.Year.name }}</span>
 				<a-radio-group v-model="year.cronEvery" class="cron-radio-group">
 						<a-radio class="cron-radio" value="5">{{ text.Year.noSet }}</a-radio>				
 						<a-radio class="cron-radio" value="1">{{ text.Year.every }}</a-radio>
@@ -213,7 +214,7 @@
 							{{ text.Year.interval[0] }}
 							<a-input-number class="cron-form-item" v-model="year.incrementIncrement" :min="1" :max="99"></a-input-number>
 							{{ text.Year.interval[1] }}
-							<a-input-number class="cron-form-item" v-model="year.incrementStart" :min="2023" :max="2128"></a-input-number>
+							<a-input-number class="cron-form-item" v-model="year.incrementStart" :min="yearStart" :max="yearStart+100"></a-input-number>
 							{{ text.Year.interval[2] }}
 							</span>
 						</a-radio>
@@ -222,18 +223,16 @@
 							<span class="cron-radio-content">
 							{{ text.Year.specific }}
 							<a-select class="cron-form-item" mode="tags" v-model="year.specificSpecific" style="margin-right:0">
-								<a-select-option v-for="val in 100" :key="val" :value="String(2022 + val)">{{ 2022 + val }}</a-select-option>
+								<a-select-option v-for="val in 100" :key="val" :value="String(yearStart + val -1 )">{{ yearStart + val -1 }}</a-select-option>
 							</a-select>
 							</span>
-						</a-radio>
-					
-					
+						</a-radio>					
 						<a-radio class="cron-radio" value="4">
 							<span class="cron-radio-content">
 							{{ text.Year.cycle[0] }}
-							<a-input-number class="cron-form-item" v-model="year.rangeStart" :min="2023" :max="2123"></a-input-number>
+							<a-input-number class="cron-form-item" v-model="year.rangeStart" :min="yearStart" :max="yearStart+100"></a-input-number>
 							{{ text.Year.cycle[1] }}
-							<a-input-number class="cron-form-item" v-model="year.rangeEnd" :min="2023" :max="2123" style="margin-right:0"></a-input-number>
+							<a-input-number class="cron-form-item" v-model="year.rangeEnd" :min="yearStart" :max="yearStart+100" style="margin-right:0"></a-input-number>
 							</span>
 						</a-radio>
 					
@@ -249,6 +248,7 @@
 	</div>
 </template>
 <script>
+import _ from 'lodash'
 import Language from './language/index'
 import { InputNumber, Radio, Select, Tabs, Icon } from 'ant-design-vue'
 export default {
@@ -270,17 +270,30 @@ export default {
 		}, 
 		value: {
 			type: String,
-			default: '* * * * * ? *'
+			default: '* * * * * ?'
 		},
 		item: {
 			type: Array,
 			default: () => ['second','minute','hour','day','month','week']
+		},
+		weekByNum: { // use number to represent DayOfWeek
+			type: Boolean,
+			default: false
+		},
+		sundayIndex: { // sunday index， default 0
+			type: Number,
+			default: 0
+		},
+		yearStart: {
+			type: Number,
+			default: new Date().getFullYear()
 		}
 	},
 	data() {
 		return {
 			tabActive: 'second',
 			weekEnum: ['SUN','MON','TUE','WED','THU','FRI','SAT'],
+			weekNumEnum: _.range(this.sundayIndex, this.sundayIndex + 7).map(item => String(item)),
 			exps: [
 				{ type: "second", expression: "" },
 				{ type: "minute", expression: "" },
@@ -341,10 +354,10 @@ export default {
 			},
 			year: {
 				cronEvery: '',
-				incrementStart: '',
+				incrementStart: String(this.yearStart),
 				incrementIncrement: '1',
-				rangeStart: '',
-				rangeEnd: '',
+				rangeStart: String(this.yearStart),
+				rangeEnd: String(this.yearStart),
 				specificSpecific: [],
 			},
 			output: {
@@ -361,16 +374,18 @@ export default {
 	watch: {
 		cron(val) {
 			this.$emit('input', val)
-			this.$emit('change', val);
+			this.$emit('change', val)
 		},
 		value(val) {
-			console.info('T', val)
-			this.resolveExpression()
-		}
+			val !== this.cron && this.resolveExpression(val)
+		},
 	},
 	computed: {
 		text() {
 			return Language[this.lang || 'cn']
+		},
+		weekValueList() {
+			return this.weekByNum? this.weekNumEnum : this.weekEnum
 		},
 		secondsText() {
 			let seconds = '';
@@ -443,9 +458,10 @@ export default {
 			let cronEvery = this.day.cronEvery;
 			switch (cronEvery.toString()) {
 				case '1':
+					days = '*'
 					break
 				case '2':
-					days = this.day.incrementStart + '/' + this.day.incrementIncrement
+					days = [this.day.incrementStart,this.day.incrementIncrement].join('/')
 					break
 				case '3':
 					this.day.specificSpecific.map(val => {
@@ -465,7 +481,7 @@ export default {
 				case '7':
 					days = this.day.cronDaysNearestWeekday + "W"
 					break
-				default:
+				case '8':
 					days = '?'
 					break
 			}
@@ -482,7 +498,7 @@ export default {
 					weeks = weeks.slice(0, -1);
 					break;
 				case '3':
-					weeks = this.week.cronNthDayDay + "#" + this.week.cronNthDayNth;
+					weeks = [this.week.cronNthDayDay,this.week.cronNthDayNth].join('#')
 					break;
 				case '4':
 					weeks = this.week.cronLastSpecificDomDay + 'L';
@@ -500,7 +516,7 @@ export default {
 					months = '*';
 					break;
 				case '2':
-					months = this.month.incrementStart + '/' + this.month.incrementIncrement;
+					months = [this.month.incrementStart,this.month.incrementIncrement].join('/')
 					break;
 				case '3':
 					this.month.specificSpecific.map(val => {
@@ -509,8 +525,9 @@ export default {
 					months = months.slice(0, -1);
 					break;
 				case '4':
-					months = this.month.rangeStart + '-' + this.month.rangeEnd;
+					months = [this.month.rangeStart,this.month.rangeEnd].join('-')
 					break;
+
 			}
 			return months;
 		},
@@ -522,7 +539,7 @@ export default {
 					years = '*';
 					break;
 				case '2':
-					years = this.year.incrementStart + '/' + this.year.incrementIncrement;
+					years = [this.year.incrementStart, this.year.incrementIncrement].join('/')
 					break;
 				case '3':
 					this.year.specificSpecific.map(val => {
@@ -531,7 +548,7 @@ export default {
 					years = years.slice(0, -1);
 					break;
 				case '4':
-					years = this.year.rangeStart + '-' + this.year.rangeEnd;
+					years = [this.year.rangeStart,this.year.rangeEnd].join('-')
 					break;
 				case '5':
 					years = '';
@@ -540,7 +557,7 @@ export default {
 			return years;
 		},
 		cron() {
-			return `${this.secondsText || '*'} ${this.minutesText || '*'} ${this.hoursText || '*'} ${this.daysText || '*'} ${this.monthsText || '*'} ${this.weeksText || '?'} ${this.yearsText}`
+			return `${this.secondsText || '*'} ${this.minutesText || '*'} ${this.hoursText || '*'} ${this.daysText || '*'} ${this.monthsText || '*'} ${this.weeksText || '?'} ${this.yearsText}`.trim()
 		},
 	},
 	methods: {
@@ -575,7 +592,7 @@ export default {
 		},
 		// 年，月，时，分，秒
 		commonParser(expressionType, str) {
-			if(str == null) { // 年一般省略
+			if(str == null || str == '') { // 年一般省略
 				expressionType.specificSpecific = []
 				expressionType.cronEvery = '5'
 			} else if (str == "*") {
@@ -591,25 +608,28 @@ export default {
 		resolveWeek(str) {
 			const matchCronLastSpecificDomDay = /[(SUN)|(MON)|(TUE)|(WED)|(THU)|(FRI)|(SAT)]+L/
 			if (str.indexOf(",") >= 0) {
-				this.day.cronEvery = "2"
-				this.resolveComma(this.week, str);
+				this.week.cronEvery = "2"
+				this.resolveComma(this.week, str, '2');
 			} else if (str.indexOf("#") >= 0) {
-				this.day.cronEvery = "3"
+				this.week.cronEvery = "3"
 				let range = str.split("#")
 				this.week.cronNthDayDay = range[0]
 				this.week.cronNthDayNth = range[1]
-			} else if (matchCronLastSpecificDomDay.test(str)) {
+			} else if (matchCronLastSpecificDomDay.test(str)) { 
 				this.week.cronEvery = "4"
 				this.week.cronLastSpecificDomDay = str.match(matchCronLastSpecificDomDay)[0].substr(0,3)
+			} else if (/\dL/.test(str)) {
+					this.week.cronEvery = "4";
+					this.week.cronLastSpecificDomDay = str.match(/(\d)L/)[1]
 			} else {
-				this.cronEvery = '5'
+				this.week.cronEvery = '5'
 			}
 		},
 		resolveDay(str) {
 			if (str == "*") {
 				this.resolveStar(this.day);
 			} else if (str.indexOf("/") >= 0) {
-				this.resolveSlash(this.day, str, "3");
+				this.resolveSlash(this.day, str, '2');
 			} else if (str == "L") {
 				this.day.cronEvery = "4";
 			} else if (str == "LW") {
@@ -623,7 +643,7 @@ export default {
 			} else if ( str == '?') {
 				this.day.cronEvery = '8'
 			} else {
-				this.resolveComma(this.day, str, "5");
+				this.resolveComma(this.day, str, '3');
 			}
 		},
 		resolveStar(expressionObj, type = "1") {

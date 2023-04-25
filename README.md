@@ -1,5 +1,5 @@
 <h1 align="center">
-  <a href="http://json-schema.sviip.com/" target="_blank">antv-cron</a>
+  <a href="https://zyqwst.github.io/antv-cron/dist/index.html" target="_blank">antv-cron</a>
 </h1>
 
 [![Start](https://img.shields.io/github/stars/zyqwst/antv-cron?style=social)](https://github.com/zyqwst/antv-cron/stargazers)
@@ -13,7 +13,7 @@
 A Cron expression editor of easy-to-use, based on Vue2
 
 ### Example
-**Demo** [http://json-schema.sviip.com](http://json-schema.sviip.com) 
+**Demo** [https://zyqwst.github.io/antv-cron/dist/index.html](https://zyqwst.github.io/antv-cron/dist/index.html) 
 
 ```bash
 npm install antv-cron

@@ -8,7 +8,7 @@
 [![npm download](https://img.shields.io/npm/dt/antv-cron.svg?maxAge=30)](https://www.npmjs.com/package/antv-cron)
 [![npm download per month](https://img.shields.io/npm/dm/antv-cron.svg)](https://www.npmjs.com/package/antv-cron)
 [![npm version](https://img.shields.io/npm/v/antv-cron.svg)](https://www.npmjs.com/package/antv-cron)
-[![MIT License](https://img.shields.io/github/license/zyqwst/antv-cron.svg)](https://github.com/zyqwst/antv-cron/blob/master/LICENSE)
+[![MIT License](https://img.shields.io/github/license/zyqwst/antv-cron.svg)](https://github.com/zyqwst/antv-cron/blob/main/LICENSE)
 
 A Cron expression editor of easy-to-use, based on Vue2
 

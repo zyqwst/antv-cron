@@ -1,6 +1,6 @@
 {
   "name": "antv-cron",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "author": "zhangyq",
   "description": "A cron editor of easy-to-use, base on Vue",
   "keywords": [

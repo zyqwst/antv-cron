@@ -10,9 +10,9 @@ module.exports = defineConfig({
   transpileDependencies: true,
   pages: {
     index: {
-        entry: 'examples/main.js',
-        template: 'public/index.html',
-        filename: 'index.html'
+      entry: 'examples/main.js',
+      template: 'public/index.html',
+      filename: 'index.html'
     }
   },
   configureWebpack:{
@@ -21,8 +21,7 @@ module.exports = defineConfig({
         resourceRegExp: /^\.\/locale$/,
         contextRegExp: /moment$/,
       }),
-    ],
-    externals: ['moment', 'lodash']
+    ]
   },
   chainWebpack(config) {
     config.resolve.alias.set('@ant-design/icons/lib/dist$', path.resolve('./packages/cron-input/ant-icon.js'))

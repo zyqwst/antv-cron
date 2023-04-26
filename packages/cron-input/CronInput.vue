@@ -733,3 +733,4 @@ export default {
 	font-size: 18px;
 	font-weight: bold;
 }
+</style>

@@ -100,7 +100,7 @@
 			<a-tab-pane key="day" :disabled="!item.includes('day')">
 				<span slot="tab"><a-icon type="calendar" v-show="lang=='cn'" /> {{ text.Day.name }}</span>
 				<a-radio-group v-model="day.cronEvery" class="cron-radio-group">
-					<a-radio class="cron-radio" value="7">{{ text.Day.noSet }}</a-radio>
+					<a-radio class="cron-radio" value="8">{{ text.Day.noSet }}</a-radio>
 					<a-radio class="cron-radio" value="1">{{ text.Day.every }}</a-radio>
 					<a-radio class="cron-radio" value="2">
 						<span class="cron-radio-content">
@@ -291,7 +291,7 @@ export default {
 	},
 	data() {
 		return {
-			tabActive: 'second',
+			tabActive: this.item[0] || null,
 			weekEnum: ['SUN','MON','TUE','WED','THU','FRI','SAT'],
 			weekNumEnum: _.range(this.sundayIndex, this.sundayIndex + 7).map(item => String(item)),
 			exps: [

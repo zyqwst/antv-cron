@@ -10,7 +10,7 @@
 [![npm version](https://img.shields.io/npm/v/antv-cron.svg)](https://www.npmjs.com/package/antv-cron)
 [![MIT License](https://img.shields.io/github/license/zyqwst/antv-cron.svg)](https://github.com/zyqwst/antv-cron/blob/main/LICENSE)
 
-A Cron expression editor of easy-to-use, based on Vue2
+A Cron expression editor of easy-to-use, based on Vue@2.6.14
 
 ### Example
 **Demo** [https://zyqwst.github.io/antv-cron/dist/index.html](https://zyqwst.github.io/antv-cron/dist/index.html) 

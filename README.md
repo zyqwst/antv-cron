@@ -56,7 +56,7 @@ export default {
 |属性|说明|类型|是否必须|默认值|
 :-|:-|:-|:-|:-
 |value(v-model)|cron变量|string|是||
-|item|可配置的项|array|否|`['second','minute','hour','day','month','week']`|
+|item|可配置的项['second','minute','hour','day','month','week','year']|array|否|`['second','minute','hour','day','month','week']`|
 |weekByNum|星期(周)是否是用数字，默认false，使用英文简写，如SUN、MON|Boolean|否|`false`|
 |sundayIndex|星期(周)使用数字时，星期天的值，一般是0或1|int|否|`0`|
 |yearStart|年的默认开始日期，如2023||否|`当年`|

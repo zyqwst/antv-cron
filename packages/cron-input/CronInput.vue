@@ -248,7 +248,7 @@
 	</div>
 </template>
 <script>
-import _ from 'lodash'
+import { range } from './Util'
 import Language from './language/index'
 import { InputNumber, Radio, Select, Tabs, Icon } from 'ant-design-vue'
 export default {
@@ -293,7 +293,7 @@ export default {
 		return {
 			tabActive: this.item[0] || null,
 			weekEnum: ['SUN','MON','TUE','WED','THU','FRI','SAT'],
-			weekNumEnum: _.range(this.sundayIndex, this.sundayIndex + 7).map(item => String(item)),
+			// weekNumEnum: [],
 			exps: [
 				{ type: "second", expression: "" },
 				{ type: "minute", expression: "" },
@@ -379,10 +379,19 @@ export default {
 		value(val) {
 			val !== this.cron && this.resolveExpression(val)
 		},
+		item(val) {
+			val[0].indexOf(this.tabActive)===-1 && (this.tabActive = val[0] || null)
+		},
+		weekByNum(){
+			this.week.cronEvery = '5'
+		}
 	},
 	computed: {
 		text() {
 			return Language[this.lang || 'cn']
+		},
+		weekNumEnum() {
+			return range(this.sundayIndex, 7).map(item => String(item))
 		},
 		weekValueList() {
 			return this.weekByNum? this.weekNumEnum : this.weekEnum
@@ -724,4 +733,3 @@ export default {
 	font-size: 18px;
 	font-weight: bold;
 }
-</style>

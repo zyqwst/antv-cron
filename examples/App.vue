@@ -22,7 +22,7 @@
             </a-select>
           </a-form-item>
           <a-form-item label="使用数字表示周(week by num)" :label-col="{ span: 18 }" :wrapper-col="{ span: 6 }">
-            <a-switch v-model="form.weekByNum" @change="changeWeekByNum"/>
+            <a-switch v-model="form.weekByNum"/>
           </a-form-item>
           <a-form-item label="星期天是第几天(sunday index)" :label-col="{ span: 16 }" :wrapper-col="{ span: 8 }">
             <a-input-number v-model="form.sundayIndex" :disabled="!form.weekByNum"/>
@@ -37,7 +37,7 @@
           class="cron-editor"
           v-model="cron"
           :week-by-num="form.weekByNum"
-          :sunday-index="form.sundayIndex"
+          :sundayIndex="form.sundayIndex"
           :item="form.item"
           :year-start="form.yearStart"
           :lang="form.lang"
@@ -51,9 +51,9 @@
         <h2 style="margin-top:1em">气泡编辑</h2>
         <a-popover trigger="click">
           <template slot="content">
-            <cron-input v-model="cron"/>
+            <cron-input v-model="cron" v-if="show"/>
           </template>
-          <a-input v-model="cron" placeholder="cron str"/>
+          <a-input v-model="cron" placeholder="cron str" v-if="show"/>
         </a-popover>
       </div>
 
@@ -71,6 +71,7 @@ export default {
   data () {
     return {
       version: app.version,
+      show: true,
       cron: '0 0 2 * * MONL',
       langOptions: ['cn', 'en'],
       itemOptions: ['second','minute','hour','day','month','week','year'],

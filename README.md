@@ -11,6 +11,7 @@
 [![MIT License](https://img.shields.io/github/license/zyqwst/antv-cron.svg)](https://github.com/zyqwst/antv-cron/blob/main/LICENSE)
 
 A Cron expression editor of easy-to-use, based on Vue@2.6.14
+![image](https://user-images.githubusercontent.com/10893736/234774889-b65dced3-a464-4c2d-957d-27aa565a8fda.png)
 
 ### Example
 **Demo** [https://zyqwst.github.io/antv-cron/dist/index.html](https://zyqwst.github.io/antv-cron/dist/index.html) 

@@ -380,7 +380,7 @@ export default {
 			val !== this.cron && this.resolveExpression(val)
 		},
 		item(val) {
-			val[0].indexOf(this.tabActive)===-1 && (this.tabActive = val[0] || null)
+			val.indexOf(this.tabActive)===-1 && (this.tabActive = val[0] || null)
 		},
 		weekByNum(){
 			this.week.cronEvery = '5'

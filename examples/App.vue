@@ -51,7 +51,16 @@
         <h2 style="margin-top:1em">气泡编辑</h2>
         <a-popover trigger="click">
           <template slot="content">
-            <cron-input v-model="cron" v-if="show"/>
+            <cron-input
+              class="cron-editor"
+              v-model="cron"
+              :week-by-num="form.weekByNum"
+              :sundayIndex="form.sundayIndex"
+              :item="form.item"
+              :year-start="form.yearStart"
+              :lang="form.lang"
+              @change="change"
+              />
           </template>
           <a-input v-model="cron" placeholder="cron str" v-if="show"/>
         </a-popover>
@@ -77,7 +86,7 @@ export default {
       itemOptions: ['second','minute','hour','day','month','week','year'],
       form: {
         lang: 'cn',
-        item: ['second','minute','hour','day','month','week'],
+        item: ['minute','hour','day','month','week'],
         weekByNum: false,
         sundayIndex: 0,
         yearStart: new Date().getFullYear()

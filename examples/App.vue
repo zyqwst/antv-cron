@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="title">   
-      <a href="https://github.com/zyqwst/json-schema-editor-vue" target="_blank">antv-cron</a>
+      <a href="https://github.com/zyqwst/antv-cron" target="_blank">antv-cron</a>
       <span class="version"> version：{{ version }}</span>
     </div>
     <div class="desc">
